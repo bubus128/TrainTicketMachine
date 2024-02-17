@@ -18,7 +18,7 @@ namespace TrainTicketMachine.UnitTests.Infrastructure.Repositories
         public void Setup()
         {
             _configurationMock = new Mock<IConfiguration>();
-            _configurationMock.Setup(x => x.GetSection("InfrastructureConfig")["ApiUrl"]).Returns(_url);
+            _configurationMock.Setup(x => x.GetSection("InfrastructureConfig")["StationsApiUrl"]).Returns(_url);
         }
 
         /// <summary>
