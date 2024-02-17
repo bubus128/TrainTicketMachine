@@ -17,6 +17,9 @@ jobs:
       with:
         dotnet-version: 8.x 
 
+    - name: Change working directory to src
+      run: cd src
+
     - name: Restore dependencies
       run: dotnet restore
 
