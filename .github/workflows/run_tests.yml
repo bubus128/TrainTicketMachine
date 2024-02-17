@@ -17,11 +17,8 @@ jobs:
       with:
         dotnet-version: 8.x 
 
-    - name: Change working directory to src
-      run: cd src
-
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore src/TrainTicketMachine.sln  # Zmodyfikuj ścieżkę do solucji
 
     - name: Run tests
-      run: dotnet test --verbosity normal
+      run: dotnet test src/TrainTicketMachine.sln --verbosity normal
