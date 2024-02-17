@@ -2,7 +2,7 @@
 {
     public class Station
     {
-        public required string Name { get; set; }
-        public required string Code { get; set; }
+        public required string stationName { get; set; }
+        public required string stationCode { get; set; }
     }
 }
