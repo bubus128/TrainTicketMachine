@@ -40,7 +40,7 @@ namespace TrainTicketMachine.UnitTests.Infrastructure.Repositories
             StationsRepository stationsRepository = new StationsRepository(httpClient, _configurationMock.Object);
 
             // Act
-            _ = stationsRepository.GetAllStation();
+            _ = stationsRepository.GetAllStations();
 
             // Assert
             _handlerMock.Protected().Verify<Task<HttpResponseMessage>>(
@@ -71,7 +71,7 @@ namespace TrainTicketMachine.UnitTests.Infrastructure.Repositories
             StationsRepository stationsRepository = new StationsRepository(httpClient, _configurationMock.Object);
 
             // Act
-            List<Station>? stations = await stationsRepository.GetAllStation();
+            List<Station>? stations = await stationsRepository.GetAllStations();
 
             // Assert
             Assert.IsNull(stations);
@@ -97,7 +97,7 @@ namespace TrainTicketMachine.UnitTests.Infrastructure.Repositories
             StationsRepository stationsRepository = new StationsRepository(httpClient, _configurationMock.Object);
 
             // Act
-            List<Station>? stations = await stationsRepository.GetAllStation();
+            List<Station>? stations = await stationsRepository.GetAllStations();
 
             // Assert
             Assert.IsNull(stations);
@@ -123,7 +123,7 @@ namespace TrainTicketMachine.UnitTests.Infrastructure.Repositories
             StationsRepository stationsRepository = new StationsRepository(httpClient, _configurationMock.Object);
 
             // Act
-            List<Station>? stations = await stationsRepository.GetAllStation();
+            List<Station>? stations = await stationsRepository.GetAllStations();
 
             // Assert
             Assert.IsNull(stations);
@@ -149,7 +149,7 @@ namespace TrainTicketMachine.UnitTests.Infrastructure.Repositories
             StationsRepository stationsRepository = new StationsRepository(httpClient, _configurationMock.Object);
 
             // Act
-            List<Station>? stations = await stationsRepository.GetAllStation();
+            List<Station>? stations = await stationsRepository.GetAllStations();
 
             // Assert
             Assert.IsNull(stations);

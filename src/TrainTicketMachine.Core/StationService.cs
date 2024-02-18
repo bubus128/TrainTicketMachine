@@ -1,12 +1,73 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using TrainTicketMachine.Core.Interfaces;
+using TrainTicketMachine.Infrastructure.Interfaces;
+using TrainTicketMachine.Infrastructure.Models;
 
 namespace TrainTicketMachine.Core
 {
-    public class StationService
+    public class StationService : IStationService
     {
+        private IStationsRepository<Station> _stationsRepository;
+        private ITrieRepository<TrieNode> _trieRepository;
+        public StationService(IStationsRepository<Station> stationsRepository, ITrieRepository<TrieNode> trieRepository)
+        {
+            _stationsRepository = stationsRepository;
+            _trieRepository = trieRepository;
+        }
+        public async Task FetchStationsData()
+        {
+            // Fetch stations
+            List<Station>? stations = null;
+            while(stations is null)
+            {
+                stations = await _stationsRepository.GetAllStations();
+            }
+
+            // Add stations into trie structure
+            foreach (Station station in stations)
+            {
+                _trieRepository.AddStation(station);
+            }
+        }
+
+        public SearchResponse? GetStationsByPrefix(string prefix)
+        {
+            ArgumentException.ThrowIfNullOrEmpty(prefix, nameof(prefix));
+
+            TrieNode? node = _trieRepository.GetNodeByPrefix(prefix);
+
+            // Station not found
+            if(node is null)
+            {
+                return null;
+            }
+
+            // Get the next possible letters
+            List<char> nextLetters = node.Children.Keys.ToList();
+
+            // Get all possible stations
+            List<string> stationNames = new List<string>();
+            fillResponse(node, stationNames);
+
+            // Create new response 
+            SearchResponse response = new SearchResponse()
+            {
+                NextLetters = nextLetters,
+                StationsNames = stationNames
+            };
+
+            return response;
+        }
+
+        private void fillResponse(TrieNode node, List<string> stations)
+        {
+            if (node.Station is not null)
+            {
+                stations.Add(node.Station.stationName);
+            }
+            foreach(TrieNode nextNode in node.Children.Values)
+            {
+                fillResponse(nextNode, stations);
+            }
+        }
     }
 }

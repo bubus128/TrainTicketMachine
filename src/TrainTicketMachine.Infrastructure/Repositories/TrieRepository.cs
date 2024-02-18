@@ -6,11 +6,11 @@ namespace TrainTicketMachine.Infrastructure.Repositories
 {
     public class TrieRepository : ITrieRepository<TrieNode>
     {
-        private List<TrieNode> _trieNodes;
+        public Dictionary<char, TrieNode> _trieNodes { get; }
 
         public TrieRepository()
         {
-            _trieNodes = new List<TrieNode>();
+            _trieNodes = new Dictionary<char, TrieNode>();
         }
 
         /// <summary>
@@ -21,27 +21,54 @@ namespace TrainTicketMachine.Infrastructure.Repositories
         public void AddStation(Station station)
         {
             // Check if station is not null;
-            if (station == null) throw new ArgumentNullException(nameof(station));
+            ArgumentNullException.ThrowIfNull(station);
 
-            throw new NotImplementedException();
+            if (station.stationName.Length == 0) throw new ArgumentException($"Station name cannot be empty");
+
+            TrieNode? currentNode = null;
+            Dictionary<char, TrieNode>? children = _trieNodes;
+            foreach(char letter in station.stationName)
+            {
+                if (!children.ContainsKey(letter))
+                {
+                    children.Add(letter, new TrieNode() { Letter = letter });
+                }
+                
+                currentNode = children[letter];
+                children = currentNode.Children;
+            }
+            currentNode.Station = station;
         }
 
         /// <summary>
-        /// 
+        /// Get the trie node that represents the prefix.
         /// </summary>
-        /// <param name="prefix"></param>
+        /// <param name="prefix">Prefix of the station name</param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">Prefix argument cannot be null.</exception>
         /// <exception cref="ArgumentException">Prefix argument cannot be empty</exception>
-        public TrieNode GetNodeByPrefix(string prefix)
+        public TrieNode? GetNodeByPrefix(string prefix)
         {
             // Check if prefix is not null;
-            if (prefix == null) throw new ArgumentNullException(nameof(prefix));
+            ArgumentNullException.ThrowIfNull(prefix);
 
             // Check if prefix is not empty
             if (prefix.Length == 0) throw new ArgumentException($"{nameof(prefix)} argument cannot be empty");
 
-            throw new NotImplementedException();
+            TrieNode? currentNode = null;
+            Dictionary<char, TrieNode>? children = _trieNodes;
+            foreach (char letter in prefix)
+            {
+                if (!children.ContainsKey(letter))
+                {
+                    return null;
+                }
+
+                currentNode = children[letter];
+                children = currentNode.Children;
+            }
+
+            return currentNode;
         }
     }
 }

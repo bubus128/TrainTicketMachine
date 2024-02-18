@@ -17,7 +17,7 @@ namespace TrainTicketMachine.Infrastructure.Repositories
             _apiUrl = configuration.GetSection("InfrastructureConfig")["StationsApiUrl"];
         }
 
-        public async Task<List<Station>?> GetAllStation()
+        public async Task<List<Station>?> GetAllStations()
         {
             try
             {
