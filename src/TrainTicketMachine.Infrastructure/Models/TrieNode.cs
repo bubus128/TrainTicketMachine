@@ -5,14 +5,44 @@
     /// </summary>
     public class TrieNode
     {
-        public required char Char {  get; set; }
-        public required List<TrieNode> Children {  get; set; }
+        public required char Letter {  get; set; }
+        public Dictionary<char, TrieNode> Children {  get; set; }
         public Station? Station { get; set; }
 
         public TrieNode() 
         { 
             // Init the list of children
-            Children = new List<TrieNode>();
+            Children = new Dictionary<char, TrieNode>();
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            TrieNode other = obj as TrieNode;
+
+            if(this.Children.Count != other.Children.Count)
+            {
+                return false;
+            }
+            
+            foreach( char letter in this.Children.Keys ) 
+            {
+                if (!other.Children.ContainsKey(letter))
+                {
+                    return false;
+                }
+                if (!this.Children[letter].Equals(other.Children[letter]))
+                {
+                    return false;
+                }
+            }
+
+            return this.Letter == other.Letter
+                && this.Station == null ? other.Station == null : this.Station.Equals(other.Station);
         }
     }
 }

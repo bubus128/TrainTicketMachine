@@ -27,7 +27,6 @@ namespace TrainTicketMachine.FunctionalTests.Infrastructure.Tests.Repositories
         /// <summary>
         /// Check if method will get and parse stations data corectly.
         /// </summary>
-        /// <returns></returns>
         [Test]
         public async Task GetAllStations_Returns_List_Of_Stations()
         {
@@ -35,7 +34,7 @@ namespace TrainTicketMachine.FunctionalTests.Infrastructure.Tests.Repositories
             StationsRepository stationsRepository = new StationsRepository(_httpClient, _configuration);
 
             // Act
-            List<Station>? stations= await stationsRepository.GetAllStation();
+            List<Station>? stations= await stationsRepository.GetAllStations();
 
             // Assert
             Assert.IsNotNull(stations); // Check if not null
