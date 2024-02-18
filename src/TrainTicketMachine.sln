@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainTicketMachine.Function
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{1819606E-0704-4F3E-8581-1058FD523010}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainTicketMAchine.IntegraionTests", "Tests\TrainTicketMAchine.IntegraionTests\TrainTicketMAchine.IntegraionTests.csproj", "{E8C76F85-677A-4EA3-BE75-B2F8CE603558}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainTicketMAchine.IntegrationTests", "Tests\TrainTicketMAchine.IntegrationTests\TrainTicketMAchine.IntegrationTests.csproj", "{E8C76F85-677A-4EA3-BE75-B2F8CE603558}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
