@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  train-ticket-machine:
+    build:
+      context: ./src
+      dockerfile: Dockerfile
+    ports:
+      - "80:8080"
