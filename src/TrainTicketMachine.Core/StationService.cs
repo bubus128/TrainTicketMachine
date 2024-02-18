@@ -38,7 +38,7 @@ namespace TrainTicketMachine.Core
             // Station not found
             if(node is null)
             {
-                return null;
+                return new SearchResponse(){ StationsNames = new List<string>(), NextLetters = new List<char>()};
             }
 
             // Get the next possible letters
