@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\TrainTicketMachine.Api\TrainTicketMachine.Api.csproj" />
     <ProjectReference Include="..\..\TrainTicketMachine.Core\TrainTicketMachine.Core.csproj" />
     <ProjectReference Include="..\..\TrainTicketMachine.Infrastructure\TrainTicketMachine.Infrastructure.csproj" />
   </ItemGroup>

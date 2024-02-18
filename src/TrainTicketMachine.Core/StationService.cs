@@ -29,7 +29,7 @@ namespace TrainTicketMachine.Core
             }
         }
 
-        public SearchResponse? GetStationsByPrefix(string prefix)
+        public async Task<SearchResponse?> GetStationsByPrefix(string prefix)
         {
             ArgumentException.ThrowIfNullOrEmpty(prefix, nameof(prefix));
 
