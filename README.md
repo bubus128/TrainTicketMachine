@@ -8,6 +8,74 @@
 # TrainTicketMachine
 
 ## Description
+Station to the Train	Ticket	Machine task
+
+## How to use
+1. Clone
+2. Run docker-compose up
+3. Send get request with "prefix" parameter eg.: localhost:80/Stations?prefix=Ad
+4. Response:
+  ```json
+   {
+    "stationsNames": [
+        "Adderley Park",
+        "Addiewell",
+        "Addlestone",
+        "Adisham",
+        "Adlington (Cheshire)",
+        "Adlington (Lancs)",
+        "Adwick"
+    ],
+    "nextLetters": [
+        "d",
+        "i",
+        "l",
+        "w"
+    ]
+  }
+ ```
+5. Url with station data source is sotred in [appsettings.json](src/TrainTicketMachine.Api/appsettings.json) in section InfrastructureConfig:StationsApiUrl
+   
+## Quick postman tests results
+1. [localhost:80/Stations?prefix=Ad](http://localhost:80/Stations?prefix=Ad)
+ ```json
+   {
+    "stationsNames": [
+        "Adderley Park",
+        "Addiewell",
+        "Addlestone",
+        "Adisham",
+        "Adlington (Cheshire)",
+        "Adlington (Lancs)",
+        "Adwick"
+    ],
+    "nextLetters": [
+        "d",
+        "i",
+        "l",
+        "w"
+    ]
+  }
+ ```
+2. [localhost:80/Stations?prefix=Adderley](http://localhost:80/Stations?prefix=Adderley)
+```json
+{
+    "stationsNames": [
+        "Adderley Park"
+    ],
+    "nextLetters": [
+        " "
+    ]
+}
+```
+3. [localhost:80/Stations?prefix=NotAStation](http://localhost:80/Stations?prefix=NotAStation)
+```json
+{
+    "stationsNames": [],
+    "nextLetters": []
+}
+```
+ 
 
 [linkedin-badge]: https://img.shields.io/badge/LinkedIn-Świsłocki-blue?logo=linkedin
 [linkedin-url]: https://www.linkedin.com/in/jakub-swislocki/
