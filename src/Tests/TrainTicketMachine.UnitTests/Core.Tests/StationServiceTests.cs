@@ -103,7 +103,7 @@ namespace TrainTicketMachine.UnitTests.Core.Tests
                 StationService stationService = new StationService(_stationsRepositoryMock.Object, _trieRepositoryMock.Object);
 
                 // Act & Assert
-                Assert.Throws<ArgumentNullException>(() => stationService.GetStationsByPrefix(null));
+                Assert.ThrowsAsync<ArgumentNullException>(() => stationService.GetStationsByPrefix(null));
             }
 
             /// <summary>
@@ -116,7 +116,7 @@ namespace TrainTicketMachine.UnitTests.Core.Tests
                 StationService stationService = new StationService(_stationsRepositoryMock.Object, _trieRepositoryMock.Object);
 
                 // Act & Assert
-                Assert.Throws<ArgumentException>(() => stationService.GetStationsByPrefix(string.Empty));
+                Assert.ThrowsAsync<ArgumentException>(() => stationService.GetStationsByPrefix(string.Empty));
             }
 
             /// <summary>
