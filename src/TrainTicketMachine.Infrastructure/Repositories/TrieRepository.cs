@@ -1,5 +1,4 @@
-﻿using System.Xml.Linq;
-using TrainTicketMachine.Infrastructure.Interfaces;
+﻿using TrainTicketMachine.Infrastructure.Interfaces;
 using TrainTicketMachine.Infrastructure.Models;
 
 namespace TrainTicketMachine.Infrastructure.Repositories
@@ -27,13 +26,14 @@ namespace TrainTicketMachine.Infrastructure.Repositories
 
             TrieNode? currentNode = null;
             Dictionary<char, TrieNode>? children = _trieNodes;
-            foreach(char letter in station.stationName)
+            string upperName = station.stationName.ToUpper();
+            foreach (char letter in upperName)
             {
                 if (!children.ContainsKey(letter))
                 {
                     children.Add(letter, new TrieNode() { Letter = letter });
                 }
-                
+
                 currentNode = children[letter];
                 children = currentNode.Children;
             }
@@ -51,6 +51,8 @@ namespace TrainTicketMachine.Infrastructure.Repositories
         {
             // Check if prefix is not null;
             ArgumentNullException.ThrowIfNull(prefix);
+
+            prefix = prefix.ToUpper();
 
             // Check if prefix is not empty
             if (prefix.Length == 0) throw new ArgumentException($"{nameof(prefix)} argument cannot be empty");

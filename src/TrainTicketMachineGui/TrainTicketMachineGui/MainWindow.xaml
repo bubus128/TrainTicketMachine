@@ -1,0 +1,53 @@
+﻿<Window x:Class="TrainTicketMachineGui.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TrainTicketMachineGui"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <UniformGrid Rows="3" HorizontalAlignment="Left" x:Name="KeyboardGrid" Margin="315,266,0,34" Width="445">
+            <UniformGrid Columns="10" HorizontalAlignment="Center">
+                <Button Content="Q" Click="LetterButton_Click" FontSize="20" Width="40" Height="40"/>
+                <Button Content="W" Click="LetterButton_Click" FontSize="20" Width="40" Height="40"/>
+                <Button Content="E" Click="LetterButton_Click" FontSize="20" Width="40" Height="40"/>
+                <Button Content="R" Click="LetterButton_Click" FontSize="20" Width="40" Height="40"/>
+                <Button Content="T" Click="LetterButton_Click" FontSize="20" Width="40" Height="40"/>
+                <Button Content="Y" Click="LetterButton_Click" FontSize="20" Width="40" Height="40"/>
+                <Button Content="U" Click="LetterButton_Click" FontSize="20" Width="40" Height="40"/>
+                <Button Content="I" Click="LetterButton_Click" FontSize="20" Width="40" Height="40"/>
+                <Button Content="O" Click="LetterButton_Click" FontSize="20" Width="40" Height="40"/>
+                <Button Content="P" Click="LetterButton_Click" FontSize="20" Width="40" Height="40"/>
+            </UniformGrid>
+            <UniformGrid Columns="9" HorizontalAlignment="Center">
+                <Button Content="A" Click="LetterButton_Click" FontSize="20" Width="40" Height="40"/>
+                <Button Content="S" Click="LetterButton_Click" FontSize="20" Width="40" Height="40"/>
+                <Button Content="D" Click="LetterButton_Click" FontSize="20" Width="40" Height="40"/>
+                <Button Content="F" Click="LetterButton_Click" FontSize="20" Width="40" Height="40"/>
+                <Button Content="G" Click="LetterButton_Click" FontSize="20" Width="40" Height="40"/>
+                <Button Content="H" Click="LetterButton_Click" FontSize="20" Width="40" Height="40"/>
+                <Button Content="J" Click="LetterButton_Click" FontSize="20" Width="40" Height="40"/>
+                <Button Content="K" Click="LetterButton_Click" FontSize="20" Width="40" Height="40"/>
+                <Button Content="L" Click="LetterButton_Click" FontSize="20" Width="40" Height="40"/>
+            </UniformGrid>
+            <UniformGrid Columns="7" HorizontalAlignment="Center">
+                <Button Content="A" Click="LetterButton_Click" FontSize="20" Width="40" Height="40"/>
+                <Button Content="S" Click="LetterButton_Click" FontSize="20" Width="40" Height="40"/>
+                <Button Content="D" Click="LetterButton_Click" FontSize="20" Width="40" Height="40"/>
+                <Button Content="F" Click="LetterButton_Click" FontSize="20" Width="40" Height="40"/>
+                <Button Content="G" Click="LetterButton_Click" FontSize="20" Width="40" Height="40"/>
+                <Button Content="H" Click="LetterButton_Click" FontSize="20" Width="40" Height="40"/>
+                <Button Content="J" Click="LetterButton_Click" FontSize="20" Width="40" Height="40"/>
+            </UniformGrid>
+        </UniformGrid>
+
+        <ListBox x:Name="listBoxStations" Margin="10,10,519,10" SelectionChanged="StationSelected"/>
+        <!-- Pole tekstowe wyświetlające wprowadzoną nazwę -->
+        <TextBox x:Name="textBoxStationName" Margin="315,10,129,367" IsReadOnly="True"/>
+
+        <!-- Przycisk do kasowania ostatniego znaku -->
+        <Button Margin="676,10,0,367" HorizontalAlignment="Left" FontSize="30" Content="&#x2190;" Click="BackspaceButton_Click" Width="52"/>
+        <Button Margin="733,10,0,367" HorizontalAlignment="Left" FontSize="30" Content="X" Click="ResetButton_Click" Width="52"/>
+    </Grid>
+</Window>

@@ -82,7 +82,7 @@ namespace TrainTicketMachine.UnitTests.Infrastructure.Tests.Repositories
 
                 // Assert
                 Station? foundStation = null;
-                foreach (char letter in stationName)
+                foreach (char letter in stationName.ToUpper())
                 {
                     Assert.True(nodes.ContainsKey(letter));
                     foundStation = nodes[letter].Station;
@@ -120,7 +120,7 @@ namespace TrainTicketMachine.UnitTests.Infrastructure.Tests.Repositories
 
                 // Assert
                 Station? foundStation = null;
-                foreach (char letter in station2Name)
+                foreach (char letter in station2Name.ToUpper())
                 {
                     Assert.True(nodes.ContainsKey(letter));
                     foundStation = nodes[letter].Station;
@@ -155,16 +155,16 @@ namespace TrainTicketMachine.UnitTests.Infrastructure.Tests.Repositories
                 TrieNode middleNode3 = new TrieNode() { Letter = '3' };
                 middleNode3.Children.Add('3', endNode3);
 
-                TrieNode firstNode1 = new TrieNode() { Letter = 's' };
+                TrieNode firstNode1 = new TrieNode() { Letter = 'S' };
                 firstNode1.Children.Add('1', middleNode1);
                 firstNode1.Children.Add('2', middleNode2);
-                TrieNode firstNode2 = new TrieNode() { Letter = 'a' };
+                TrieNode firstNode2 = new TrieNode() { Letter = 'A' };
                 firstNode2.Children.Add('2', middleNode3);
 
                 // Create the trie repository
                 _repository = new TrieRepository();
-                _repository._trieNodes.Add('s', firstNode1);
-                _repository._trieNodes.Add('a', firstNode2);
+                _repository._trieNodes.Add('S', firstNode1);
+                _repository._trieNodes.Add('A', firstNode2);
             }
 
             /// <summary>
@@ -260,7 +260,7 @@ namespace TrainTicketMachine.UnitTests.Infrastructure.Tests.Repositories
                 TrieNode middleNode2 = new TrieNode() { Letter = '2' };
                 middleNode2.Children.Add('3', endNode2);
                 middleNode1.Children.Add('2', endNode1);
-                TrieNode firstNode1 = new TrieNode() { Letter = 's' };
+                TrieNode firstNode1 = new TrieNode() { Letter = 'S' };
                 firstNode1.Children.Add('1', middleNode1);
                 firstNode1.Children.Add('2', middleNode2);
 
