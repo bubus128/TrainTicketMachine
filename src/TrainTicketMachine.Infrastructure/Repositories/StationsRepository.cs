@@ -6,43 +6,30 @@ using TrainTicketMachine.Infrastructure.Models;
 
 namespace TrainTicketMachine.Infrastructure.Repositories
 {
-    public class StationsRepository : IStationsRepository<Station>
+    public class StationsRepository(HttpClient httpClient, IConfiguration configuration) : IStationsRepository<Station>
     {
-        private readonly HttpClient _httpClient;
-        private readonly string _apiUrl;
-
-        public StationsRepository(HttpClient httpClient, IConfiguration configuration)
-        {
-            _httpClient = httpClient;
-            _apiUrl = configuration.GetSection("InfrastructureConfig")["StationsApiUrl"];
-        }
+        private readonly string? _apiUrl = configuration.GetSection("InfrastructureConfig")["StationsApiUrl"];
 
         public async Task<List<Station>?> GetAllStations()
         {
             try
             {
-                var response = await _httpClient.GetAsync(_apiUrl);
+                var response = await httpClient.GetAsync(_apiUrl);
 
                 if (response.IsSuccessStatusCode)
                 {
                     var jsonString = await response.Content.ReadAsStringAsync();
-                    List<Station>? stations = JsonSerializer.Deserialize<List<Station>>(jsonString);
+                    var stations = JsonSerializer.Deserialize<List<Station>>(jsonString);
 
                     return stations;
                 }
                 else
                 {
-                    // Handle unsuccessful response
-                    if (response.StatusCode == HttpStatusCode.NotFound)
-                    {
-                        // Handle 404 Not Found
-                        Console.WriteLine("The requested resource was not found.");
-                    }
-                    else
-                    {
+                    // Handle 404 Not Found
+                    Console.WriteLine(response.StatusCode == HttpStatusCode.NotFound
+                        ? "The requested resource was not found."
                         // Handle other types of errors
-                        Console.WriteLine($"Failed to retrieve data from API. Status code: {response.StatusCode}");
-                    }
+                        : $"Failed to retrieve data from API. Status code: {response.StatusCode}");
                     return null;
                 }
             }

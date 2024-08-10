@@ -2,9 +2,9 @@
 
 namespace TrainTicketMachine.Infrastructure.Interfaces
 {
-    public interface ITrieRepository<Node>
+    public interface ITrieRepository<TNode>
     {
         public void AddStation(Station station);
-        public Node? GetNodeByPrefix(string prefix);
+        public TNode? GetNodeByPrefix(string prefix);
     }
 }

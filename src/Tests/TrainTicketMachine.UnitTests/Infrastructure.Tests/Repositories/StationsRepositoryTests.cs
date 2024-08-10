@@ -1,9 +1,8 @@
-﻿using System.Net;
-using System.Text.Json;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Moq;
 using Moq.Protected;
-using TrainTicketMachine.Infrastructure.Models;
+using System.Net;
+using System.Text.Json;
 using TrainTicketMachine.Infrastructure.Repositories;
 
 namespace TrainTicketMachine.UnitTests.Infrastructure.Repositories
@@ -11,7 +10,7 @@ namespace TrainTicketMachine.UnitTests.Infrastructure.Repositories
     public class StationsRepositoryTests
     {
         private Mock<IConfiguration> _configurationMock;
-        private Mock<HttpMessageHandler> _handlerMock = new Mock<HttpMessageHandler>(MockBehavior.Strict);
+        private readonly Mock<HttpMessageHandler> _handlerMock = new Mock<HttpMessageHandler>(MockBehavior.Strict);
         private const string _url = "http://example.com/api";
 
         [SetUp]
@@ -37,7 +36,7 @@ namespace TrainTicketMachine.UnitTests.Infrastructure.Repositories
                 );
             var httpClient = new HttpClient(_handlerMock.Object);
 
-            StationsRepository stationsRepository = new StationsRepository(httpClient, _configurationMock.Object);
+            var stationsRepository = new StationsRepository(httpClient, _configurationMock.Object);
 
             // Act
             _ = stationsRepository.GetAllStations();
@@ -68,10 +67,10 @@ namespace TrainTicketMachine.UnitTests.Infrastructure.Repositories
                 .ReturnsAsync(new HttpResponseMessage(HttpStatusCode.NotFound));
             var httpClient = new HttpClient(_handlerMock.Object);
 
-            StationsRepository stationsRepository = new StationsRepository(httpClient, _configurationMock.Object);
+            var stationsRepository = new StationsRepository(httpClient, _configurationMock.Object);
 
             // Act
-            List<Station>? stations = await stationsRepository.GetAllStations();
+            var stations = await stationsRepository.GetAllStations();
 
             // Assert
             Assert.IsNull(stations);
@@ -94,10 +93,10 @@ namespace TrainTicketMachine.UnitTests.Infrastructure.Repositories
                 .ReturnsAsync(new HttpResponseMessage(HttpStatusCode.InternalServerError));
             var httpClient = new HttpClient(_handlerMock.Object);
 
-            StationsRepository stationsRepository = new StationsRepository(httpClient, _configurationMock.Object);
+            var stationsRepository = new StationsRepository(httpClient, _configurationMock.Object);
 
             // Act
-            List<Station>? stations = await stationsRepository.GetAllStations();
+            var stations = await stationsRepository.GetAllStations();
 
             // Assert
             Assert.IsNull(stations);
@@ -120,10 +119,10 @@ namespace TrainTicketMachine.UnitTests.Infrastructure.Repositories
                 .ThrowsAsync(new HttpRequestException("Simulated HttpRequestException"));
             var httpClient = new HttpClient(_handlerMock.Object);
 
-            StationsRepository stationsRepository = new StationsRepository(httpClient, _configurationMock.Object);
+            var stationsRepository = new StationsRepository(httpClient, _configurationMock.Object);
 
             // Act
-            List<Station>? stations = await stationsRepository.GetAllStations();
+            var stations = await stationsRepository.GetAllStations();
 
             // Assert
             Assert.IsNull(stations);
@@ -146,10 +145,10 @@ namespace TrainTicketMachine.UnitTests.Infrastructure.Repositories
                 .ThrowsAsync(new JsonException("Simulated JsonException"));
             var httpClient = new HttpClient(_handlerMock.Object);
 
-            StationsRepository stationsRepository = new StationsRepository(httpClient, _configurationMock.Object);
+            var stationsRepository = new StationsRepository(httpClient, _configurationMock.Object);
 
             // Act
-            List<Station>? stations = await stationsRepository.GetAllStations();
+            var stations = await stationsRepository.GetAllStations();
 
             // Assert
             Assert.IsNull(stations);

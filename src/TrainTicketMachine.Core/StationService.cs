@@ -2,72 +2,68 @@
 using TrainTicketMachine.Infrastructure.Interfaces;
 using TrainTicketMachine.Infrastructure.Models;
 
-namespace TrainTicketMachine.Core
+namespace TrainTicketMachine.Core;
+
+public class StationService(
+        IStationsRepository<Station> stationsRepository,
+        ITrieRepository<TrieNode> trieRepository)
+        : IStationService
 {
-    public class StationService : IStationService
+    public async Task FetchStationsData()
     {
-        private IStationsRepository<Station> _stationsRepository;
-        private ITrieRepository<TrieNode> _trieRepository;
-        public StationService(IStationsRepository<Station> stationsRepository, ITrieRepository<TrieNode> trieRepository)
+        // Fetch stations
+        List<Station>? stations = null;
+        while (stations is null)
         {
-            _stationsRepository = stationsRepository;
-            _trieRepository = trieRepository;
-        }
-        public async Task FetchStationsData()
-        {
-            // Fetch stations
-            List<Station>? stations = null;
-            while(stations is null)
-            {
-                stations = await _stationsRepository.GetAllStations();
-            }
-
-            // Add stations into trie structure
-            foreach (Station station in stations)
-            {
-                _trieRepository.AddStation(station);
-            }
+            stations = await stationsRepository.GetAllStations();
         }
 
-        public async Task<SearchResponse?> GetStationsByPrefix(string prefix)
+        // Add stations into trie structure
+        foreach (var station in stations)
         {
-            ArgumentException.ThrowIfNullOrEmpty(prefix, nameof(prefix));
+            trieRepository.AddStation(station);
+        }
+    }
 
-            TrieNode? node = _trieRepository.GetNodeByPrefix(prefix);
+    public async Task<SearchResponse?> GetStationsByPrefix(string prefix)
+    {
+        ArgumentException.ThrowIfNullOrEmpty(prefix, nameof(prefix));
 
-            // Station not found
-            if(node is null)
-            {
-                return new SearchResponse(){ StationsNames = new List<string>(), NextLetters = new List<char>()};
-            }
+        var node = trieRepository.GetNodeByPrefix(prefix);
 
-            // Get the next possible letters
-            List<char> nextLetters = node.Children.Keys.ToList();
-
-            // Get all possible stations
-            List<string> stationNames = new List<string>();
-            fillResponse(node, stationNames);
-
-            // Create new response 
-            SearchResponse response = new SearchResponse()
-            {
-                NextLetters = nextLetters,
-                StationsNames = stationNames
-            };
-
-            return response;
+        // Station not found
+        if (node is null)
+        {
+            return new SearchResponse() { StationsNames = [], NextLetters = [] };
         }
 
-        private void fillResponse(TrieNode node, List<string> stations)
+        // Get the next possible letters
+        var nextLetters = node.Children.Keys.ToList();
+
+        // Get all possible stations
+        var stationNames = new List<string>();
+        fillResponse(node, stationNames);
+
+        // Create new response 
+        var response = new SearchResponse()
         {
-            if (node.Station is not null)
-            {
-                stations.Add(node.Station.stationName);
-            }
-            foreach(TrieNode nextNode in node.Children.Values)
-            {
-                fillResponse(nextNode, stations);
-            }
+            NextLetters = nextLetters,
+            StationsNames = stationNames
+        };
+
+        return response;
+    }
+
+    private void fillResponse(TrieNode node, List<string> stations)
+    {
+        if (node.Station is not null)
+        {
+            stations.Add(node.Station.stationName);
+        }
+        foreach (var nextNode in node.Children.Values)
+        {
+            fillResponse(nextNode, stations);
         }
     }
 }
+

@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TrainTicketMachine.Infrastructure.Models;
-using static System.Collections.Specialized.BitVector32;
+﻿using TrainTicketMachine.Infrastructure.Models;
 
-namespace TrainTicketMachine.Core.Interfaces
+namespace TrainTicketMachine.Core.Interfaces;
+
+public interface IStationService
 {
-    public interface IStationService
-    {
-        public Task<SearchResponse?> GetStationsByPrefix(string prefix);
-        public Task FetchStationsData();
-    }
+    public Task<SearchResponse?> GetStationsByPrefix(string prefix);
+    public Task FetchStationsData();
 }

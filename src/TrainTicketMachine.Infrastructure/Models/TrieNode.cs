@@ -5,12 +5,12 @@
     /// </summary>
     public class TrieNode
     {
-        public required char Letter {  get; set; }
-        public Dictionary<char, TrieNode> Children {  get; set; }
+        public required char Letter { get; set; }
+        public Dictionary<char, TrieNode> Children { get; set; }
         public Station? Station { get; set; }
 
-        public TrieNode() 
-        { 
+        public TrieNode()
+        {
             // Init the list of children
             Children = new Dictionary<char, TrieNode>();
         }
@@ -22,14 +22,14 @@
                 return false;
             }
 
-            TrieNode other = obj as TrieNode;
+            var other = obj as TrieNode;
 
-            if(this.Children.Count != other.Children.Count)
+            if (this.Children.Count != other.Children.Count)
             {
                 return false;
             }
-            
-            foreach( char letter in this.Children.Keys ) 
+
+            foreach (var letter in this.Children.Keys)
             {
                 if (!other.Children.ContainsKey(letter))
                 {
@@ -43,6 +43,11 @@
 
             return this.Letter == other.Letter
                 && this.Station == null ? other.Station == null : this.Station.Equals(other.Station);
+        }
+
+        public override int GetHashCode()
+        {
+            throw new NotImplementedException();
         }
     }
 }

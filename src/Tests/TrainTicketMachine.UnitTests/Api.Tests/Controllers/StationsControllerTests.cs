@@ -1,10 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TrainTicketMachine.Api.Controllers;
 using TrainTicketMachine.Core.Interfaces;
 using TrainTicketMachine.Infrastructure.Models;
@@ -20,7 +16,7 @@ namespace TrainTicketMachine.UnitTests.Api.Tests.Controllers
         public void SetUp()
         {
             _mockStationService = new Mock<IStationService>();
-            _controller = new StationsController(_mockStationService.Object);
+            _controller = new StationsController(_mockStationService.Object, new Mock<ILogger>().Object);
         }
 
         /// <summary>
@@ -30,11 +26,11 @@ namespace TrainTicketMachine.UnitTests.Api.Tests.Controllers
         public async Task GetStationsByPrefix_WithValidPrefix_ReturnsOkResult()
         {
             // Arrange
-            var prefix = "abc";
+            const string prefix = "abc";
             var expectedResponse = new SearchResponse
             {
-                NextLetters = new System.Collections.Generic.List<char> { 'd', 'e', 'f' },
-                StationsNames = new System.Collections.Generic.List<string> { "Station1", "Station2" }
+                NextLetters = ['d', 'e', 'f'],
+                StationsNames = ["Station1", "Station2"]
             };
             _mockStationService.Setup(x => x.GetStationsByPrefix(prefix)).ReturnsAsync(expectedResponse);
 
@@ -42,9 +38,9 @@ namespace TrainTicketMachine.UnitTests.Api.Tests.Controllers
             var result = await _controller.GetStationsByPrefix(prefix);
 
             // Assert
-            Assert.IsInstanceOf<OkObjectResult>(result.Result);
+            Assert.That(result.Result, Is.InstanceOf<OkObjectResult>());
             var okResult = result.Result as OkObjectResult;
-            Assert.AreEqual(expectedResponse, okResult.Value);
+            Assert.That(okResult?.Value, Is.EqualTo(expectedResponse));
         }
 
         /// <summary>
@@ -54,13 +50,13 @@ namespace TrainTicketMachine.UnitTests.Api.Tests.Controllers
         public async Task GetStationsByPrefix_WithEmptyPrefix_ReturnsBadRequestResult()
         {
             // Arrange
-            string prefix = "";
+            const string prefix = "";
 
             // Act
             var result = await _controller.GetStationsByPrefix(prefix);
 
             // Assert
-            Assert.IsInstanceOf<BadRequestObjectResult>(result.Result);
+            Assert.That(result.Result, Is.InstanceOf<BadRequestObjectResult>());
         }
 
         /// <summary>
@@ -70,13 +66,13 @@ namespace TrainTicketMachine.UnitTests.Api.Tests.Controllers
         public async Task GetStationsByPrefix_WithNullPrefix_ReturnsBadRequestResult()
         {
             // Arrange
-            string prefix = null;
+            string? prefix = null;
 
             // Act
             var result = await _controller.GetStationsByPrefix(prefix);
 
             // Assert
-            Assert.IsInstanceOf<BadRequestObjectResult>(result.Result);
+            Assert.That(result.Result, Is.InstanceOf<BadRequestObjectResult>());
         }
 
         /// <summary>
@@ -86,14 +82,14 @@ namespace TrainTicketMachine.UnitTests.Api.Tests.Controllers
         public async Task GetStationsByPrefix_WithInvalidPrefix_ReturnsNotFoundResult()
         {
             // Arrange
-            var prefix = "invalid";
+            const string prefix = "invalid";
             _mockStationService.Setup(x => x.GetStationsByPrefix(prefix)).ReturnsAsync((SearchResponse)null);
 
             // Act
             var result = await _controller.GetStationsByPrefix(prefix);
 
             // Assert
-            Assert.IsInstanceOf<NotFoundObjectResult>(result.Result);
+            Assert.That(result.Result, Is.InstanceOf<NotFoundObjectResult>());
         }
 
         /// <summary>
@@ -103,7 +99,7 @@ namespace TrainTicketMachine.UnitTests.Api.Tests.Controllers
         public async Task GetStationsByPrefix_ThrowsException_ReturnsInternalServerErrorResult()
         {
             // Arrange
-            var prefix = "exception";
+            const string prefix = "exception";
             _mockStationService.Setup(x => x.GetStationsByPrefix(It.IsAny<string>())).ThrowsAsync(new Exception());
 
             // Act
@@ -111,7 +107,7 @@ namespace TrainTicketMachine.UnitTests.Api.Tests.Controllers
 
             // Assert
             var objectCodeResult = result.Result as ObjectResult;
-            Assert.AreEqual(500, objectCodeResult.StatusCode);
+            Assert.That(objectCodeResult?.StatusCode, Is.EqualTo(500));
         }
     }
 }

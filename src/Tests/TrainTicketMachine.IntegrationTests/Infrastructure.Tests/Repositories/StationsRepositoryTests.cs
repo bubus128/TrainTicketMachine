@@ -1,13 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TrainTicketMachine.Infrastructure.Repositories;
-using System.IO;
-using TrainTicketMachine.Infrastructure.Models;
 
 namespace TrainTicketMachine.FunctionalTests.Infrastructure.Tests.Repositories
 {
@@ -16,8 +8,8 @@ namespace TrainTicketMachine.FunctionalTests.Infrastructure.Tests.Repositories
         private HttpClient _httpClient;
         private IConfiguration _configuration;
 
-        [SetUp] 
-        public void SetUp() 
+        [SetUp]
+        public void SetUp()
         {
             _httpClient = new HttpClient();
             _configuration = new ConfigurationBuilder()
@@ -31,14 +23,14 @@ namespace TrainTicketMachine.FunctionalTests.Infrastructure.Tests.Repositories
         public async Task GetAllStations_Returns_List_Of_Stations()
         {
             // Arrange
-            StationsRepository stationsRepository = new StationsRepository(_httpClient, _configuration);
+            var stationsRepository = new StationsRepository(_httpClient, _configuration);
 
             // Act
-            List<Station>? stations= await stationsRepository.GetAllStations();
+            var stations = await stationsRepository.GetAllStations();
 
             // Assert
-            Assert.IsNotNull(stations); // Check if not null
-            Assert.Greater(stations.Count, 0); // Check if not empty
+            Assert.That(stations, Is.Not.Null); // Check if not null
+            Assert.That(stations.Count, Is.GreaterThan(0)); // Check if not empty
         }
     }
 }
