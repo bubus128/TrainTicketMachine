@@ -6,15 +6,8 @@ namespace TrainTicketMachine.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class StationsController: ControllerBase
+    public class StationsController(IStationService stationService, ILogger logger) : ControllerBase
     {
-        private readonly IStationService _stationService;
-
-        public StationsController(IStationService stationService)
-        {
-            _stationService = stationService;
-        }
-
         [HttpGet]
         public async Task<ActionResult<SearchResponse>> GetStationsByPrefix([FromQuery] string prefix)
         {
@@ -25,7 +18,7 @@ namespace TrainTicketMachine.Api.Controllers
 
             try
             {
-                var searchResponse = await _stationService.GetStationsByPrefix(prefix);
+                var searchResponse = await stationService.GetStationsByPrefix(prefix);
 
                 if (searchResponse == null)
                 {
@@ -36,6 +29,7 @@ namespace TrainTicketMachine.Api.Controllers
             }
             catch (Exception ex)
             {
+                logger.LogError(ex, ex.Message);
                 return StatusCode(500, "Internal server error");
             }
         }

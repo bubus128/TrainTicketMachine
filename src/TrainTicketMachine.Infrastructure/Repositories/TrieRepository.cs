@@ -5,29 +5,27 @@ namespace TrainTicketMachine.Infrastructure.Repositories
 {
     public class TrieRepository : ITrieRepository<TrieNode>
     {
-        public Dictionary<char, TrieNode> _trieNodes { get; }
-
-        public TrieRepository()
-        {
-            _trieNodes = new Dictionary<char, TrieNode>();
-        }
+        public Dictionary<char, TrieNode> TrieNodes { get; } = [];
 
         /// <summary>
         /// Add station to a trie tee.
         /// </summary>
-        /// <param name="station">Station to be aded into trie tree.</param>
+        /// <param name="station">Station to be added into trie tree.</param>
         /// <exception cref="ArgumentNullException">Station argument cannot be null</exception>
         public void AddStation(Station station)
         {
             // Check if station is not null;
             ArgumentNullException.ThrowIfNull(station);
 
-            if (station.stationName.Length == 0) throw new ArgumentException($"Station name cannot be empty");
+            if (station.StationName.Length == 0)
+            {
+                throw new ArgumentException("Station name cannot be empty");
+            }
 
             TrieNode? currentNode = null;
-            Dictionary<char, TrieNode>? children = _trieNodes;
-            string upperName = station.stationName.ToUpper();
-            foreach (char letter in upperName)
+            var children = TrieNodes;
+            var upperName = station.StationName.ToUpper();
+            foreach (var letter in upperName)
             {
                 if (!children.ContainsKey(letter))
                 {
@@ -58,8 +56,8 @@ namespace TrainTicketMachine.Infrastructure.Repositories
             if (prefix.Length == 0) throw new ArgumentException($"{nameof(prefix)} argument cannot be empty");
 
             TrieNode? currentNode = null;
-            Dictionary<char, TrieNode>? children = _trieNodes;
-            foreach (char letter in prefix)
+            var children = TrieNodes;
+            foreach (var letter in prefix)
             {
                 if (!children.ContainsKey(letter))
                 {

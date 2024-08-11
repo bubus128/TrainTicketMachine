@@ -2,20 +2,25 @@
 {
     public class Station
     {
-        public required string stationName { get; set; }
-        public required string stationCode { get; set; }
+        public required string StationName { get; set; }
+        public required string StationCode { get; set; }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj == null || GetType() != obj.GetType())
             {
                 return false;
             }
 
-            Station other = obj as Station;
+            var other = obj as Station;
 
-            return this.stationName == other.stationName
-                && this.stationCode == other.stationCode;
+            return this.StationName == other.StationName
+                && this.StationCode == other.StationCode;
+        }
+
+        public override int GetHashCode()
+        {
+            throw new NotImplementedException();
         }
     }
 }

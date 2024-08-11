@@ -1,9 +1,9 @@
-﻿using System.Net;
-using System.Text.Json;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Moq;
 using Moq.Protected;
-using TrainTicketMachine.Infrastructure.Models;
+using System.Net;
+using System.Text.Json;
 using TrainTicketMachine.Infrastructure.Repositories;
 
 namespace TrainTicketMachine.UnitTests.Infrastructure.Repositories
@@ -11,14 +11,14 @@ namespace TrainTicketMachine.UnitTests.Infrastructure.Repositories
     public class StationsRepositoryTests
     {
         private Mock<IConfiguration> _configurationMock;
-        private Mock<HttpMessageHandler> _handlerMock = new Mock<HttpMessageHandler>(MockBehavior.Strict);
-        private const string _url = "http://example.com/api";
+        private readonly Mock<HttpMessageHandler> _handlerMock = new(MockBehavior.Strict);
+        private const string Url = "http://example.com/api";
 
         [SetUp]
         public void Setup()
         {
             _configurationMock = new Mock<IConfiguration>();
-            _configurationMock.Setup(x => x.GetSection("InfrastructureConfig")["StationsApiUrl"]).Returns(_url);
+            _configurationMock.Setup(x => x.GetSection("InfrastructureConfig")["StationsApiUrl"]).Returns(Url);
         }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace TrainTicketMachine.UnitTests.Infrastructure.Repositories
                 );
             var httpClient = new HttpClient(_handlerMock.Object);
 
-            StationsRepository stationsRepository = new StationsRepository(httpClient, _configurationMock.Object);
+            var stationsRepository = new StationsRepository(httpClient, _configurationMock.Object, new Mock<ILogger>().Object);
 
             // Act
             _ = stationsRepository.GetAllStations();
@@ -68,10 +68,10 @@ namespace TrainTicketMachine.UnitTests.Infrastructure.Repositories
                 .ReturnsAsync(new HttpResponseMessage(HttpStatusCode.NotFound));
             var httpClient = new HttpClient(_handlerMock.Object);
 
-            StationsRepository stationsRepository = new StationsRepository(httpClient, _configurationMock.Object);
+            var stationsRepository = new StationsRepository(httpClient, _configurationMock.Object, new Mock<ILogger>().Object);
 
             // Act
-            List<Station>? stations = await stationsRepository.GetAllStations();
+            var stations = await stationsRepository.GetAllStations();
 
             // Assert
             Assert.IsNull(stations);
@@ -94,10 +94,10 @@ namespace TrainTicketMachine.UnitTests.Infrastructure.Repositories
                 .ReturnsAsync(new HttpResponseMessage(HttpStatusCode.InternalServerError));
             var httpClient = new HttpClient(_handlerMock.Object);
 
-            StationsRepository stationsRepository = new StationsRepository(httpClient, _configurationMock.Object);
+            var stationsRepository = new StationsRepository(httpClient, _configurationMock.Object, new Mock<ILogger>().Object);
 
             // Act
-            List<Station>? stations = await stationsRepository.GetAllStations();
+            var stations = await stationsRepository.GetAllStations();
 
             // Assert
             Assert.IsNull(stations);
@@ -120,10 +120,10 @@ namespace TrainTicketMachine.UnitTests.Infrastructure.Repositories
                 .ThrowsAsync(new HttpRequestException("Simulated HttpRequestException"));
             var httpClient = new HttpClient(_handlerMock.Object);
 
-            StationsRepository stationsRepository = new StationsRepository(httpClient, _configurationMock.Object);
+            var stationsRepository = new StationsRepository(httpClient, _configurationMock.Object, new Mock<ILogger>().Object);
 
             // Act
-            List<Station>? stations = await stationsRepository.GetAllStations();
+            var stations = await stationsRepository.GetAllStations();
 
             // Assert
             Assert.IsNull(stations);
@@ -146,10 +146,10 @@ namespace TrainTicketMachine.UnitTests.Infrastructure.Repositories
                 .ThrowsAsync(new JsonException("Simulated JsonException"));
             var httpClient = new HttpClient(_handlerMock.Object);
 
-            StationsRepository stationsRepository = new StationsRepository(httpClient, _configurationMock.Object);
+            var stationsRepository = new StationsRepository(httpClient, _configurationMock.Object, new Mock<ILogger>().Object);
 
             // Act
-            List<Station>? stations = await stationsRepository.GetAllStations();
+            var stations = await stationsRepository.GetAllStations();
 
             // Assert
             Assert.IsNull(stations);
