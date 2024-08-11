@@ -1,22 +1,19 @@
-﻿using TrainTicketMachine.Core.Interfaces;
-using Microsoft.Extensions.Hosting;
+﻿using Microsoft.Extensions.Hosting;
+using TrainTicketMachine.Core.Interfaces;
 
-public class StationsDataInitializer : IHostedService
+namespace TrainTicketMachine.Core;
+
+public class StationsDataInitializer(IStationService stationService) : BackgroundService
 {
-    private readonly IStationService _stationService;
-
-    public StationsDataInitializer(IStationService stationService)
+    private readonly TimeSpan _interval = TimeSpan.FromHours(1);
+    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        _stationService = stationService;
-    }
+        while (!stoppingToken.IsCancellationRequested)
+        {
+            await stationService.FetchStationsData();
 
-    public async Task StartAsync(CancellationToken cancellationToken)
-    {
-        await _stationService.FetchStationsData();
-    }
-
-    public Task StopAsync(CancellationToken cancellationToken)
-    {
-        return Task.CompletedTask;
+            // Wait for the next interval
+            await Task.Delay(_interval, stoppingToken);
+        }
     }
 }

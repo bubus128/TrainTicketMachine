@@ -37,7 +37,7 @@ namespace TrainTicketMachine.UnitTests.Infrastructure.Repositories
                 );
             var httpClient = new HttpClient(_handlerMock.Object);
 
-            var stationsRepository = new StationsRepository(httpClient, _configurationMock.Object, new Mock<ILogger>().Object);
+            var stationsRepository = new StationsRepository(httpClient, _configurationMock.Object, new Mock<ILogger<StationsRepository>>().Object);
 
             // Act
             _ = stationsRepository.GetAllStations();
@@ -68,7 +68,7 @@ namespace TrainTicketMachine.UnitTests.Infrastructure.Repositories
                 .ReturnsAsync(new HttpResponseMessage(HttpStatusCode.NotFound));
             var httpClient = new HttpClient(_handlerMock.Object);
 
-            var stationsRepository = new StationsRepository(httpClient, _configurationMock.Object, new Mock<ILogger>().Object);
+            var stationsRepository = new StationsRepository(httpClient, _configurationMock.Object, new Mock<ILogger<StationsRepository>>().Object);
 
             // Act
             var stations = await stationsRepository.GetAllStations();
@@ -94,7 +94,7 @@ namespace TrainTicketMachine.UnitTests.Infrastructure.Repositories
                 .ReturnsAsync(new HttpResponseMessage(HttpStatusCode.InternalServerError));
             var httpClient = new HttpClient(_handlerMock.Object);
 
-            var stationsRepository = new StationsRepository(httpClient, _configurationMock.Object, new Mock<ILogger>().Object);
+            var stationsRepository = new StationsRepository(httpClient, _configurationMock.Object, new Mock<ILogger<StationsRepository>>().Object);
 
             // Act
             var stations = await stationsRepository.GetAllStations();
@@ -120,7 +120,7 @@ namespace TrainTicketMachine.UnitTests.Infrastructure.Repositories
                 .ThrowsAsync(new HttpRequestException("Simulated HttpRequestException"));
             var httpClient = new HttpClient(_handlerMock.Object);
 
-            var stationsRepository = new StationsRepository(httpClient, _configurationMock.Object, new Mock<ILogger>().Object);
+            var stationsRepository = new StationsRepository(httpClient, _configurationMock.Object, new Mock<ILogger<StationsRepository>>().Object);
 
             // Act
             var stations = await stationsRepository.GetAllStations();
@@ -146,7 +146,7 @@ namespace TrainTicketMachine.UnitTests.Infrastructure.Repositories
                 .ThrowsAsync(new JsonException("Simulated JsonException"));
             var httpClient = new HttpClient(_handlerMock.Object);
 
-            var stationsRepository = new StationsRepository(httpClient, _configurationMock.Object, new Mock<ILogger>().Object);
+            var stationsRepository = new StationsRepository(httpClient, _configurationMock.Object, new Mock<ILogger<StationsRepository>>().Object);
 
             // Act
             var stations = await stationsRepository.GetAllStations();

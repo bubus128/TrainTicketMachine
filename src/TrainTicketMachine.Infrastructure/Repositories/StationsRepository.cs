@@ -7,7 +7,7 @@ using TrainTicketMachine.Infrastructure.Models;
 
 namespace TrainTicketMachine.Infrastructure.Repositories
 {
-    public class StationsRepository(HttpClient httpClient, IConfiguration configuration, ILogger logger) : IStationsRepository<Station>
+    public class StationsRepository(HttpClient httpClient, IConfiguration configuration, ILogger<StationsRepository> logger) : IStationsRepository<Station>
     {
         private readonly string? _apiUrl = configuration.GetSection("InfrastructureConfig")["StationsApiUrl"];
 
