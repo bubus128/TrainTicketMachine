@@ -16,7 +16,7 @@ namespace TrainTicketMachine.UnitTests.Api.Tests.Controllers
         public void SetUp()
         {
             _mockStationService = new Mock<IStationService>();
-            _controller = new StationsController(_mockStationService.Object, new Mock<ILogger>().Object);
+            _controller = new StationsController(_mockStationService.Object, new Mock<ILogger<StationsController>>().Object);
         }
 
         /// <summary>

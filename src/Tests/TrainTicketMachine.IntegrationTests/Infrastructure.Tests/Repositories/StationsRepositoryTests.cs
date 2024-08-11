@@ -25,7 +25,7 @@ namespace TrainTicketMachine.FunctionalTests.Infrastructure.Tests.Repositories
         public async Task GetAllStations_Returns_List_Of_Stations()
         {
             // Arrange
-            var stationsRepository = new StationsRepository(_httpClient, _configuration, new Mock<ILogger>().Object);
+            var stationsRepository = new StationsRepository(_httpClient, _configuration, new Mock<ILogger<StationsRepository>>().Object);
 
             // Act
             var stations = await stationsRepository.GetAllStations();

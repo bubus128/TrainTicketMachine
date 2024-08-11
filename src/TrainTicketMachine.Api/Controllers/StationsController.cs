@@ -6,7 +6,7 @@ namespace TrainTicketMachine.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class StationsController(IStationService stationService, ILogger logger) : ControllerBase
+    public class StationsController(IStationService stationService, ILogger<StationsController> logger) : ControllerBase
     {
         [HttpGet]
         public async Task<ActionResult<SearchResponse>> GetStationsByPrefix([FromQuery] string prefix)
