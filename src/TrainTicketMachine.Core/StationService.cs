@@ -42,7 +42,7 @@ public class StationService(
 
         // Get all possible stations
         var stationNames = new List<string>();
-        fillResponse(node, stationNames);
+        FillResponse(node, stationNames);
 
         // Create new response 
         var response = new SearchResponse()
@@ -54,15 +54,15 @@ public class StationService(
         return response;
     }
 
-    private void fillResponse(TrieNode node, List<string> stations)
+    private void FillResponse(TrieNode node, List<string> stations)
     {
         if (node.Station is not null)
         {
-            stations.Add(node.Station.stationName);
+            stations.Add(node.Station.StationName);
         }
         foreach (var nextNode in node.Children.Values)
         {
-            fillResponse(nextNode, stations);
+            FillResponse(nextNode, stations);
         }
     }
 }

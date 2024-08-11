@@ -6,14 +6,10 @@
     public class TrieNode
     {
         public required char Letter { get; set; }
-        public Dictionary<char, TrieNode> Children { get; set; }
+        public Dictionary<char, TrieNode> Children { get; set; } = new();
         public Station? Station { get; set; }
 
-        public TrieNode()
-        {
-            // Init the list of children
-            Children = new Dictionary<char, TrieNode>();
-        }
+        // Init the list of children
 
         public override bool Equals(object obj)
         {

@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using Moq;
 using TrainTicketMachine.Infrastructure.Repositories;
 
 namespace TrainTicketMachine.FunctionalTests.Infrastructure.Tests.Repositories
@@ -23,7 +25,7 @@ namespace TrainTicketMachine.FunctionalTests.Infrastructure.Tests.Repositories
         public async Task GetAllStations_Returns_List_Of_Stations()
         {
             // Arrange
-            var stationsRepository = new StationsRepository(_httpClient, _configuration);
+            var stationsRepository = new StationsRepository(_httpClient, _configuration, new Mock<ILogger>().Object);
 
             // Act
             var stations = await stationsRepository.GetAllStations();

@@ -2,8 +2,8 @@
 {
     public class Station
     {
-        public required string stationName { get; set; }
-        public required string stationCode { get; set; }
+        public required string StationName { get; set; }
+        public required string StationCode { get; set; }
 
         public override bool Equals(object? obj)
         {
@@ -14,8 +14,8 @@
 
             var other = obj as Station;
 
-            return this.stationName == other.stationName
-                && this.stationCode == other.stationCode;
+            return this.StationName == other.StationName
+                && this.StationCode == other.StationCode;
         }
 
         public override int GetHashCode()

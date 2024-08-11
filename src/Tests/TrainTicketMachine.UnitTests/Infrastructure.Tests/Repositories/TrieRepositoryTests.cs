@@ -19,7 +19,7 @@ namespace TrainTicketMachine.UnitTests.Infrastructure.Tests.Repositories
                 var repository = new TrieRepository();
 
                 // Assert
-                Assert.IsNotNull(repository._trieNodes);
+                Assert.IsNotNull(repository.TrieNodes);
             }
         }
 
@@ -48,8 +48,8 @@ namespace TrainTicketMachine.UnitTests.Infrastructure.Tests.Repositories
                 var repository = new TrieRepository();
                 var station = new Station()
                 {
-                    stationName = string.Empty,
-                    stationCode = string.Empty,
+                    StationName = string.Empty,
+                    StationCode = string.Empty,
                 };
 
                 // Act & Assert
@@ -67,13 +67,13 @@ namespace TrainTicketMachine.UnitTests.Infrastructure.Tests.Repositories
                 const string stationName = "Station";
                 var station = new Station()
                 {
-                    stationName = stationName,
-                    stationCode = string.Empty,
+                    StationName = stationName,
+                    StationCode = string.Empty,
                 };
 
                 // Act
                 repository.AddStation(station);
-                var nodes = repository._trieNodes;
+                var nodes = repository.TrieNodes;
 
                 // Assert
                 Station? foundStation = null;
@@ -84,7 +84,7 @@ namespace TrainTicketMachine.UnitTests.Infrastructure.Tests.Repositories
                     nodes = nodes[letter].Children;
                 }
                 Assert.That(station, Is.EqualTo(foundStation));
-                Assert.That(foundStation.stationName, Is.EqualTo(stationName));
+                Assert.That(foundStation.StationName, Is.EqualTo(stationName));
             }
 
             /// <summary>
@@ -99,19 +99,19 @@ namespace TrainTicketMachine.UnitTests.Infrastructure.Tests.Repositories
                 var station2Name = "Statio";
                 var station1 = new Station()
                 {
-                    stationName = station1Name,
-                    stationCode = string.Empty,
+                    StationName = station1Name,
+                    StationCode = string.Empty,
                 };
                 var station2 = new Station()
                 {
-                    stationName = station2Name,
-                    stationCode = string.Empty,
+                    StationName = station2Name,
+                    StationCode = string.Empty,
                 };
 
                 // Act
                 repository.AddStation(station1);
                 repository.AddStation(station2);
-                var nodes = repository._trieNodes;
+                var nodes = repository.TrieNodes;
 
                 // Assert
                 Station? foundStation = null;
@@ -122,7 +122,7 @@ namespace TrainTicketMachine.UnitTests.Infrastructure.Tests.Repositories
                     nodes = nodes[letter].Children;
                 }
                 Assert.That(station2, Is.EqualTo(foundStation));
-                Assert.That(station2Name, Is.EqualTo(foundStation.stationName));
+                Assert.That(station2Name, Is.EqualTo(foundStation.StationName));
             }
         }
 
@@ -134,9 +134,9 @@ namespace TrainTicketMachine.UnitTests.Infrastructure.Tests.Repositories
             public void SetUp()
             {
                 // Create stations
-                var station1 = new Station() { stationCode = string.Empty, stationName = "s12" };
-                var station2 = new Station() { stationCode = string.Empty, stationName = "s23" };
-                var station3 = new Station() { stationCode = string.Empty, stationName = "a23" };
+                var station1 = new Station() { StationCode = string.Empty, StationName = "s12" };
+                var station2 = new Station() { StationCode = string.Empty, StationName = "s23" };
+                var station3 = new Station() { StationCode = string.Empty, StationName = "a23" };
 
                 // Create the trie structure
                 var endNode1 = new TrieNode() { Letter = '2', Station = station1 };
@@ -158,8 +158,8 @@ namespace TrainTicketMachine.UnitTests.Infrastructure.Tests.Repositories
 
                 // Create the trie repository
                 _repository = new TrieRepository();
-                _repository._trieNodes.Add('S', firstNode1);
-                _repository._trieNodes.Add('A', firstNode2);
+                _repository.TrieNodes.Add('S', firstNode1);
+                _repository.TrieNodes.Add('A', firstNode2);
             }
 
             /// <summary>
@@ -209,7 +209,7 @@ namespace TrainTicketMachine.UnitTests.Infrastructure.Tests.Repositories
             {
                 // Arrange
                 var prefix = "s12";
-                var station1 = new Station() { stationCode = string.Empty, stationName = "s12" };
+                var station1 = new Station() { StationCode = string.Empty, StationName = "s12" };
                 var endNode1 = new TrieNode() { Letter = '2', Station = station1 };
 
                 // Act
@@ -227,7 +227,7 @@ namespace TrainTicketMachine.UnitTests.Infrastructure.Tests.Repositories
             {
                 // Arrange
                 var prefix = "s1";
-                var station1 = new Station() { stationCode = string.Empty, stationName = "s12" };
+                var station1 = new Station() { StationCode = string.Empty, StationName = "s12" };
                 var endNode1 = new TrieNode() { Letter = '2', Station = station1 };
                 var middleNode1 = new TrieNode() { Letter = '1' };
                 middleNode1.Children.Add('2', endNode1);
@@ -247,8 +247,8 @@ namespace TrainTicketMachine.UnitTests.Infrastructure.Tests.Repositories
             {
                 // Arrange
                 var prefix = "s";
-                var station1 = new Station() { stationCode = string.Empty, stationName = "s12" };
-                var station2 = new Station() { stationCode = string.Empty, stationName = "s23" };
+                var station1 = new Station() { StationCode = string.Empty, StationName = "s12" };
+                var station2 = new Station() { StationCode = string.Empty, StationName = "s23" };
                 var endNode1 = new TrieNode() { Letter = '2', Station = station1 };
                 var endNode2 = new TrieNode() { Letter = '3', Station = station2 };
                 var middleNode1 = new TrieNode() { Letter = '1' };
