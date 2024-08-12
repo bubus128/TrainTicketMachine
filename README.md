@@ -18,7 +18,7 @@ Test Statuses
 # TrainTicketMachine
 
 ## Description
-Station to the Train	Ticket	Machine task
+Solution to the Train	Ticket	Machine task
 
 ## How to use
 1. Clone
