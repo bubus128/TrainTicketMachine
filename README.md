@@ -1,9 +1,19 @@
 [![LinkedIn][linkedin-badge]][linkedin-url]
 
+<!-- 
+Shields.io workflow statuses dont work with privat repositories
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/bubus128/TrainTicketMachine/run_unit_tests.yml?branch=develop&link=https%3A%2F%2Fgithub.com%2Fbubus128%2FTrainTicketMachine%2Factions%2Fworkflows%2Frun_unit_tests.yml)
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/bubus128/TrainTicketMachine/run_functional_tests.yml?branch=develop&link=https%3A%2F%2Fgithub.com%2Fbubus128%2FTrainTicketMachine%2Factions%2Fworkflows%2Frun_functional_tests.yml)
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/bubus128/TrainTicketMachine/run_integration_tests.yml?branch=develop&link=https%3A%2F%2Fgithub.com%2Fbubus128%2FTrainTicketMachine%2Factions%2Fworkflows%2Frun_integration_tests.yml)
+-->
 
+## Test Results
+
+Test Statuses
+
+![Functional Tests](https://github.com/bubus128/TrainTicketMachine/actions/workflows/run_functional_tests.yml/badge.svg?branch=develop)\
+![Integration Tests](https://github.com/bubus128/TrainTicketMachine/actions/workflows/run_integration_tests.yml/badge.svg?branch=develop)\
+![Unit Tests](https://github.com/bubus128/TrainTicketMachine/actions/workflows/run_unit_tests.yml/badge.svg?branch=develop) 
 
 # TrainTicketMachine
 
