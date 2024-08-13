@@ -1,14 +1,23 @@
 [![LinkedIn][linkedin-badge]][linkedin-url]
 
+<!-- 
+Shields.io workflow statuses dont work with privat repositories
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/bubus128/TrainTicketMachine/run_unit_tests.yml?branch=develop&link=https%3A%2F%2Fgithub.com%2Fbubus128%2FTrainTicketMachine%2Factions%2Fworkflows%2Frun_unit_tests.yml)
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/bubus128/TrainTicketMachine/run_functional_tests.yml?branch=develop&link=https%3A%2F%2Fgithub.com%2Fbubus128%2FTrainTicketMachine%2Factions%2Fworkflows%2Frun_functional_tests.yml)
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/bubus128/TrainTicketMachine/run_integration_tests.yml?branch=develop&link=https%3A%2F%2Fgithub.com%2Fbubus128%2FTrainTicketMachine%2Factions%2Fworkflows%2Frun_integration_tests.yml)
+-->
 
+## Test Results
+
+Test Statuses
+
+![Unit Tests](https://github.com/bubus128/TrainTicketMachine/actions/workflows/run_unit_tests.yml/badge.svg?branch=develop)\
+![Integration Tests](https://github.com/bubus128/TrainTicketMachine/actions/workflows/run_integration_tests.yml/badge.svg?branch=develop)
 
 # TrainTicketMachine
 
 ## Description
-Station to the Train	Ticket	Machine task
+Solution to the Train	Ticket Machine task. Application can be run using Docker. Folder [src/TrainTicketMachineGui](https://github.com/bubus128/TrainTicketMachine/tree/develop/src/TrainTicketMachineGui) contains a graphical user interface (WPF app). GUI was created for a university project, not as part of a recruitment task. This part was made as a "quick and dirty solution", but it works 😆.
 
 ## How to use
 1. Clone
