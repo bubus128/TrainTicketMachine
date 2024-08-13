@@ -4,6 +4,7 @@ using TrainTicketMachine.Infrastructure.Interfaces;
 using TrainTicketMachine.Infrastructure.Models;
 
 namespace TrainTicketMachine.UnitTests.Core.Tests;
+
 public class StationServiceTests
 {
     public class FetchStationsDataTests
@@ -19,48 +20,50 @@ public class StationServiceTests
         }
 
         /// <summary>
-        /// Method FetchStationsData should call StationsRepository.GetAllStations.
+        ///     Method FetchStationsData should call StationsRepository.GetAllStations.
         /// </summary>
         [Test]
         public async Task Method_Calls_GetAllStations()
         {
             // Arrange
             _stationsRepositoryMock.Setup(x => x.GetAllStations()).ReturnsAsync([]);
-            var stationService = new StationService(_stationsRepositoryMock.Object, _trieRepositoryMock.Object);
+            var stationService =
+                new StationService(_stationsRepositoryMock.Object, _trieRepositoryMock.Object);
 
             // Act
-            await stationService.FetchStationsData();
+            await stationService.FetchStationsData().ConfigureAwait(false);
 
             // Assert
             _stationsRepositoryMock.Verify(x => x.GetAllStations(), Times.Once());
         }
 
         /// <summary>
-        /// Method FetchStationsData should call TrieRepository.AddStation for each station.
+        ///     Method FetchStationsData should call TrieRepository.AddStation for each station.
         /// </summary>
         [Test]
         public async Task Method_Calls_AddStation()
         {
             List<Station> stations =
             [
-                new Station() { StationCode = string.Empty, StationName = string.Empty },
-                    new Station() { StationCode = string.Empty, StationName = string.Empty },
-                    new Station() { StationCode = string.Empty, StationName = string.Empty }
+                new Station { StationCode = string.Empty, StationName = string.Empty },
+                new Station { StationCode = string.Empty, StationName = string.Empty },
+                new Station { StationCode = string.Empty, StationName = string.Empty }
             ];
             _stationsRepositoryMock.Setup(x => x.GetAllStations()).ReturnsAsync(stations);
 
             // Arrange
-            var stationService = new StationService(_stationsRepositoryMock.Object, _trieRepositoryMock.Object);
+            var stationService =
+                new StationService(_stationsRepositoryMock.Object, _trieRepositoryMock.Object);
 
             // Act
-            await stationService.FetchStationsData();
+            await stationService.FetchStationsData().ConfigureAwait(false);
 
             // Assert
             _trieRepositoryMock.Verify(x => x.AddStation(It.IsAny<Station>()), Times.Exactly(stations.Count));
         }
 
         /// <summary>
-        /// Method FetchStationsData should recall StationsRepository.GetAllStations when the first call returns null.
+        ///     Method FetchStationsData should recall StationsRepository.GetAllStations when the first call returns null.
         /// </summary>
         [Test]
         public async Task Method_Retries_To_GetAllStations()
@@ -69,10 +72,11 @@ public class StationServiceTests
             _stationsRepositoryMock.SetupSequence(x => x.GetAllStations())
                 .ReturnsAsync((List<Station>)null)
                 .ReturnsAsync([]);
-            var stationService = new StationService(_stationsRepositoryMock.Object, _trieRepositoryMock.Object);
+            var stationService =
+                new StationService(_stationsRepositoryMock.Object, _trieRepositoryMock.Object);
 
             // Act
-            await stationService.FetchStationsData();
+            await stationService.FetchStationsData().ConfigureAwait(false);
 
             // Assert
             _stationsRepositoryMock.Verify(x => x.GetAllStations(), Times.Exactly(2));
@@ -80,7 +84,7 @@ public class StationServiceTests
     }
 
 
-    public class GetStationsByPrefixTests()
+    public class GetStationsByPrefixTests
     {
         private Mock<IStationsRepository<Station>> _stationsRepositoryMock;
         private Mock<ITrieRepository<TrieNode>> _trieRepositoryMock;
@@ -93,40 +97,43 @@ public class StationServiceTests
         }
 
         /// <summary>
-        /// GetStationsByPrefix method should throw the ArgumentException when prefix argument is null;
+        ///     GetStationsByPrefix method should throw the ArgumentException when prefix argument is null;
         /// </summary>
         [Test]
         public void Method_Throws_ArgumentNullException_When_Argument_Null()
         {
             // Arrange
-            var stationService = new StationService(_stationsRepositoryMock.Object, _trieRepositoryMock.Object);
+            var stationService =
+                new StationService(_stationsRepositoryMock.Object, _trieRepositoryMock.Object);
 
             // Act & Assert
             Assert.ThrowsAsync<ArgumentNullException>(() => stationService.GetStationsByPrefix(null));
         }
 
         /// <summary>
-        /// GetStationsByPrefix method should throw the ArgumentException when prefix argument is empty;
+        ///     GetStationsByPrefix method should throw the ArgumentException when prefix argument is empty;
         /// </summary>
         [Test]
         public void Method_Throws_ArgumentException_When_Argument_Empty()
         {
             // Arrange
-            var stationService = new StationService(_stationsRepositoryMock.Object, _trieRepositoryMock.Object);
+            var stationService =
+                new StationService(_stationsRepositoryMock.Object, _trieRepositoryMock.Object);
 
             // Act & Assert
             Assert.ThrowsAsync<ArgumentException>(() => stationService.GetStationsByPrefix(string.Empty));
         }
 
         /// <summary>
-        /// GetStationsByPrefix method should call TrieRepository.GetNodeByPrefix.
+        ///     GetStationsByPrefix method should call TrieRepository.GetNodeByPrefix.
         /// </summary>
         [Test]
         public void Method_Calls_GetAllStations()
         {
             // Arrange
             const string prefix = "abc";
-            var stationService = new StationService(_stationsRepositoryMock.Object, _trieRepositoryMock.Object);
+            var stationService =
+                new StationService(_stationsRepositoryMock.Object, _trieRepositoryMock.Object);
 
             // Act
             _ = stationService.GetStationsByPrefix(prefix);
@@ -136,7 +143,7 @@ public class StationServiceTests
         }
 
         /// <summary>
-        /// GetStationsByPrefix should return correct SearchResponse object.
+        ///     GetStationsByPrefix should return correct SearchResponse object.
         /// </summary>
         [Test]
         public async Task Method_Returns_Correct_ResponseAsync()
@@ -144,13 +151,14 @@ public class StationServiceTests
             // Arrange
             const string prefix = "abc";
             const string stationName = "abc";
-            var station = new Station() { StationCode = string.Empty, StationName = stationName };
-            var node = new TrieNode() { Letter = 'c', Station = station };
+            var station = new Station { StationCode = string.Empty, StationName = stationName };
+            var node = new TrieNode { Letter = 'c', Station = station };
             _trieRepositoryMock.Setup(x => x.GetNodeByPrefix(It.IsAny<string>())).Returns(node);
-            var stationService = new StationService(_stationsRepositoryMock.Object, _trieRepositoryMock.Object);
+            var stationService =
+                new StationService(_stationsRepositoryMock.Object, _trieRepositoryMock.Object);
 
             // Act
-            var response = await stationService.GetStationsByPrefix(prefix);
+            var response = await stationService.GetStationsByPrefix(prefix).ConfigureAwait(false);
 
             // Assert
             Assert.That(response, Is.Not.Null);

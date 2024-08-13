@@ -38,4 +38,12 @@
     <ProjectReference Include="..\..\TrainTicketMachine.Infrastructure\TrainTicketMachine.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EditorConfigFiles Remove="D:\TrainTicketMachine\src\Tests\TrainTicketMachine.IntegrationTests\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="D:\TrainTicketMachine\src\Tests\TrainTicketMachine.IntegrationTests\.editorconfig" />
+  </ItemGroup>
+
 </Project>

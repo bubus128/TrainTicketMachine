@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -23,6 +23,14 @@
     <ProjectReference Include="..\..\TrainTicketMachine.Api\TrainTicketMachine.Api.csproj" />
     <ProjectReference Include="..\..\TrainTicketMachine.Core\TrainTicketMachine.Core.csproj" />
     <ProjectReference Include="..\..\TrainTicketMachine.Infrastructure\TrainTicketMachine.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EditorConfigFiles Remove="D:\TrainTicketMachine\src\Tests\TrainTicketMachine.UnitTests\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="D:\TrainTicketMachine\src\Tests\TrainTicketMachine.UnitTests\.editorconfig" />
   </ItemGroup>
 
 </Project>
