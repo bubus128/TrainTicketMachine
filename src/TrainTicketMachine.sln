@@ -11,11 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainTicketMachine.Infrastr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainTicketMachine.UnitTests", "Tests\TrainTicketMachine.UnitTests\TrainTicketMachine.UnitTests.csproj", "{42CA0C65-0296-482E-9B73-45D231141CA5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainTicketMachine.FunctionalTests", "Tests\TrainTicketMachine.FunctionalTests\TrainTicketMachine.FunctionalTests.csproj", "{C6A82D8E-9735-4663-A356-5BB1292DC117}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{1819606E-0704-4F3E-8581-1058FD523010}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainTicketMachine.IntegrationTests", "Tests\TrainTicketMachine.IntegrationTests\TrainTicketMachine.IntegrationTests.csproj", "{E8C76F85-677A-4EA3-BE75-B2F8CE603558}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainTicketMachine.IntegrationTests", "Tests\TrainTicketMachine.IntegrationTests\TrainTicketMachine.IntegrationTests.csproj", "{E8C76F85-677A-4EA3-BE75-B2F8CE603558}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,10 +37,6 @@ Global
 		{42CA0C65-0296-482E-9B73-45D231141CA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42CA0C65-0296-482E-9B73-45D231141CA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{42CA0C65-0296-482E-9B73-45D231141CA5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C6A82D8E-9735-4663-A356-5BB1292DC117}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C6A82D8E-9735-4663-A356-5BB1292DC117}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C6A82D8E-9735-4663-A356-5BB1292DC117}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C6A82D8E-9735-4663-A356-5BB1292DC117}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E8C76F85-677A-4EA3-BE75-B2F8CE603558}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E8C76F85-677A-4EA3-BE75-B2F8CE603558}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E8C76F85-677A-4EA3-BE75-B2F8CE603558}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -53,7 +47,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{42CA0C65-0296-482E-9B73-45D231141CA5} = {1819606E-0704-4F3E-8581-1058FD523010}
-		{C6A82D8E-9735-4663-A356-5BB1292DC117} = {1819606E-0704-4F3E-8581-1058FD523010}
 		{E8C76F85-677A-4EA3-BE75-B2F8CE603558} = {1819606E-0704-4F3E-8581-1058FD523010}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
