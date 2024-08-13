@@ -17,7 +17,7 @@ Test Statuses
 # TrainTicketMachine
 
 ## Description
-Solution to the Train	Ticket	Machine task
+Solution to the Train	Ticket Machine task. Application can be run using Docker. Folder [src/TrainTicketMachineGui](https://github.com/bubus128/TrainTicketMachine/tree/develop/src/TrainTicketMachineGui) contains a graphical user interface (WPF app). GUI was created for a university project, not as part of a recruitment task. This part was made as a "quick and dirty solution", but it works 😆.
 
 ## How to use
 1. Clone
