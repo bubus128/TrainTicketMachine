@@ -5,9 +5,9 @@ using TrainTicketMachine.Infrastructure.Models;
 namespace TrainTicketMachine.Core;
 
 public class StationService(
-        IStationsRepository<Station> stationsRepository,
-        ITrieRepository<TrieNode> trieRepository)
-        : IStationService
+    IStationsRepository<Station> stationsRepository,
+    ITrieRepository<TrieNode> trieRepository)
+    : IStationService
 {
     public async Task FetchStationsData()
     {
@@ -34,7 +34,7 @@ public class StationService(
         // Station not found
         if (node is null)
         {
-            return new SearchResponse() { StationsNames = [], NextLetters = [] };
+            return new SearchResponse { StationsNames = [], NextLetters = [] };
         }
 
         // Get the next possible letters
@@ -45,11 +45,7 @@ public class StationService(
         FillResponse(node, stationNames);
 
         // Create new response 
-        var response = new SearchResponse()
-        {
-            NextLetters = nextLetters,
-            StationsNames = stationNames
-        };
+        var response = new SearchResponse { NextLetters = nextLetters, StationsNames = stationNames };
 
         return response;
     }
@@ -60,10 +56,10 @@ public class StationService(
         {
             stations.Add(node.Station.StationName);
         }
+
         foreach (var nextNode in node.Children.Values)
         {
             FillResponse(nextNode, stations);
         }
     }
 }
-

@@ -15,4 +15,12 @@
     <Folder Include="Exceptions\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EditorConfigFiles Remove="D:\TrainTicketMachine\src\TrainTicketMachine.Infrastructure\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="D:\TrainTicketMachine\src\TrainTicketMachine.Infrastructure\.editorconfig" />
+  </ItemGroup>
+
 </Project>

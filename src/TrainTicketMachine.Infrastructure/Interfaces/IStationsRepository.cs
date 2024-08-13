@@ -1,9 +1,8 @@
 ﻿using TrainTicketMachine.Infrastructure.Models;
 
-namespace TrainTicketMachine.Infrastructure.Interfaces
+namespace TrainTicketMachine.Infrastructure.Interfaces;
+
+public interface IStationsRepository<T>
 {
-    public interface IStationsRepository<T>
-    {
-        public Task<List<Station>?> GetAllStations();
-    }
+    public Task<List<Station>?> GetAllStations();
 }

@@ -7,8 +7,8 @@ namespace TrainTicketMachine.FunctionalTests.Infrastructure.Tests.Repositories;
 
 public class StationsRepositoryTests
 {
-    private HttpClient _httpClient;
     private IConfiguration _configuration;
+    private HttpClient _httpClient;
 
     [SetUp]
     public void SetUp()
@@ -19,13 +19,14 @@ public class StationsRepositoryTests
     }
 
     /// <summary>
-    /// Check if method will get and parse stations data corectly.
+    ///     Check if method will get and parse stations data corectly.
     /// </summary>
     [Test]
     public async Task GetAllStations_Returns_List_Of_Stations()
     {
         // Arrange
-        var stationsRepository = new StationsRepository(_httpClient, _configuration, new Mock<ILogger<StationsRepository>>().Object);
+        var stationsRepository = new StationsRepository(_httpClient, _configuration,
+            new Mock<ILogger<StationsRepository>>().Object);
 
         // Act
         var stations = await stationsRepository.GetAllStations();

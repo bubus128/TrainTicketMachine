@@ -1,18 +1,18 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System.Net;
+using System.Text.Json;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Moq;
 using Moq.Protected;
-using System.Net;
-using System.Text.Json;
 using TrainTicketMachine.Infrastructure.Repositories;
 
 namespace TrainTicketMachine.UnitTests.Infrastructure.Repositories;
 
 public class StationsRepositoryTests
 {
-    private Mock<IConfiguration> _configurationMock;
-    private readonly Mock<HttpMessageHandler> _handlerMock = new(MockBehavior.Strict);
     private const string Url = "http://example.com/api";
+    private readonly Mock<HttpMessageHandler> _handlerMock = new(MockBehavior.Strict);
+    private Mock<IConfiguration> _configurationMock;
 
     [SetUp]
     public void Setup()
@@ -22,7 +22,7 @@ public class StationsRepositoryTests
     }
 
     /// <summary>
-    /// Check if get request was send by checking if HttpMessageHandler.SendAsync was invoked.
+    ///     Check if get request was send by checking if HttpMessageHandler.SendAsync was invoked.
     /// </summary>
     [Test]
     public void GetAllStations_Sends_Get_Request()
@@ -37,7 +37,8 @@ public class StationsRepositoryTests
             );
         var httpClient = new HttpClient(_handlerMock.Object);
 
-        var stationsRepository = new StationsRepository(httpClient, _configurationMock.Object, new Mock<ILogger<StationsRepository>>().Object);
+        var stationsRepository = new StationsRepository(httpClient, _configurationMock.Object,
+            new Mock<ILogger<StationsRepository>>().Object);
 
         // Act
         _ = stationsRepository.GetAllStations();
@@ -47,12 +48,12 @@ public class StationsRepositoryTests
             "SendAsync",
             Times.AtLeastOnce(),
             ItExpr.IsAny<HttpRequestMessage>(),
-            ItExpr.IsAny<System.Threading.CancellationToken>()
+            ItExpr.IsAny<CancellationToken>()
         );
     }
 
     /// <summary>
-    /// Check if the method will return null when the request returns code 404.
+    ///     Check if the method will return null when the request returns code 404.
     /// </summary>
     [Test]
     public async Task GetAllStations_Returns_Null_When_404()
@@ -68,7 +69,8 @@ public class StationsRepositoryTests
             .ReturnsAsync(new HttpResponseMessage(HttpStatusCode.NotFound));
         var httpClient = new HttpClient(_handlerMock.Object);
 
-        var stationsRepository = new StationsRepository(httpClient, _configurationMock.Object, new Mock<ILogger<StationsRepository>>().Object);
+        var stationsRepository = new StationsRepository(httpClient, _configurationMock.Object,
+            new Mock<ILogger<StationsRepository>>().Object);
 
         // Act
         var stations = await stationsRepository.GetAllStations();
@@ -78,7 +80,7 @@ public class StationsRepositoryTests
     }
 
     /// <summary>
-    /// Check if the method will return null when the request returns code 500.
+    ///     Check if the method will return null when the request returns code 500.
     /// </summary>
     [Test]
     public async Task GetAllStations_Returns_Null_When_500()
@@ -94,7 +96,8 @@ public class StationsRepositoryTests
             .ReturnsAsync(new HttpResponseMessage(HttpStatusCode.InternalServerError));
         var httpClient = new HttpClient(_handlerMock.Object);
 
-        var stationsRepository = new StationsRepository(httpClient, _configurationMock.Object, new Mock<ILogger<StationsRepository>>().Object);
+        var stationsRepository = new StationsRepository(httpClient, _configurationMock.Object,
+            new Mock<ILogger<StationsRepository>>().Object);
 
         // Act
         var stations = await stationsRepository.GetAllStations();
@@ -104,7 +107,7 @@ public class StationsRepositoryTests
     }
 
     /// <summary>
-    /// Check if the method returns null when an HttpRequestException occurs.
+    ///     Check if the method returns null when an HttpRequestException occurs.
     /// </summary>
     [Test]
     public async Task GetAllStations_Returns_Null_When_HttpRequestException()
@@ -120,7 +123,8 @@ public class StationsRepositoryTests
             .ThrowsAsync(new HttpRequestException("Simulated HttpRequestException"));
         var httpClient = new HttpClient(_handlerMock.Object);
 
-        var stationsRepository = new StationsRepository(httpClient, _configurationMock.Object, new Mock<ILogger<StationsRepository>>().Object);
+        var stationsRepository = new StationsRepository(httpClient, _configurationMock.Object,
+            new Mock<ILogger<StationsRepository>>().Object);
 
         // Act
         var stations = await stationsRepository.GetAllStations();
@@ -130,7 +134,7 @@ public class StationsRepositoryTests
     }
 
     /// <summary>
-    /// Check if the method returns null when an JsonException occurs.
+    ///     Check if the method returns null when an JsonException occurs.
     /// </summary>
     [Test]
     public async Task GetAllStations_Returns_Null_When_JsonException()
@@ -146,7 +150,8 @@ public class StationsRepositoryTests
             .ThrowsAsync(new JsonException("Simulated JsonException"));
         var httpClient = new HttpClient(_handlerMock.Object);
 
-        var stationsRepository = new StationsRepository(httpClient, _configurationMock.Object, new Mock<ILogger<StationsRepository>>().Object);
+        var stationsRepository = new StationsRepository(httpClient, _configurationMock.Object,
+            new Mock<ILogger<StationsRepository>>().Object);
 
         // Act
         var stations = await stationsRepository.GetAllStations();

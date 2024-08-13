@@ -6,20 +6,22 @@ using TrainTicketMachine.Core.Interfaces;
 using TrainTicketMachine.Infrastructure.Models;
 
 namespace TrainTicketMachine.UnitTests.Api.Tests.Controllers;
+
 public class StationsControllerTests
 {
-    private Mock<IStationService> _mockStationService;
     private StationsController _controller;
+    private Mock<IStationService> _mockStationService;
 
     [SetUp]
     public void SetUp()
     {
         _mockStationService = new Mock<IStationService>();
-        _controller = new StationsController(_mockStationService.Object, new Mock<ILogger<StationsController>>().Object);
+        _controller = new StationsController(_mockStationService.Object,
+            new Mock<ILogger<StationsController>>().Object);
     }
 
     /// <summary>
-    /// Method should return ok result.
+    ///     Method should return ok result.
     /// </summary>
     [Test]
     public async Task GetStationsByPrefix_WithValidPrefix_ReturnsOkResult()
@@ -28,8 +30,7 @@ public class StationsControllerTests
         const string prefix = "abc";
         var expectedResponse = new SearchResponse
         {
-            NextLetters = ['d', 'e', 'f'],
-            StationsNames = ["Station1", "Station2"]
+            NextLetters = ['d', 'e', 'f'], StationsNames = ["Station1", "Station2"]
         };
         _mockStationService.Setup(x => x.GetStationsByPrefix(prefix)).ReturnsAsync(expectedResponse);
 
@@ -43,7 +44,7 @@ public class StationsControllerTests
     }
 
     /// <summary>
-    /// Method should return bad request result when prefix is empty.
+    ///     Method should return bad request result when prefix is empty.
     /// </summary>
     [Test]
     public async Task GetStationsByPrefix_WithEmptyPrefix_ReturnsBadRequestResult()
@@ -59,7 +60,7 @@ public class StationsControllerTests
     }
 
     /// <summary>
-    /// Method should return bad request result when prefix is null.
+    ///     Method should return bad request result when prefix is null.
     /// </summary>
     [Test]
     public async Task GetStationsByPrefix_WithNullPrefix_ReturnsBadRequestResult()
@@ -75,7 +76,7 @@ public class StationsControllerTests
     }
 
     /// <summary>
-    /// Method should return bad request result when prefix is invalid.
+    ///     Method should return bad request result when prefix is invalid.
     /// </summary>
     [Test]
     public async Task GetStationsByPrefix_WithInvalidPrefix_ReturnsNotFoundResult()
@@ -92,7 +93,7 @@ public class StationsControllerTests
     }
 
     /// <summary>
-    /// Method should return InternalServerError result when error occurs.
+    ///     Method should return InternalServerError result when error occurs.
     /// </summary>
     [Test]
     public async Task GetStationsByPrefix_ThrowsException_ReturnsInternalServerErrorResult()

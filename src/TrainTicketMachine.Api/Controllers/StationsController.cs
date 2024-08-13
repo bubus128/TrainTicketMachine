@@ -2,36 +2,35 @@
 using TrainTicketMachine.Core.Interfaces;
 using TrainTicketMachine.Infrastructure.Models;
 
-namespace TrainTicketMachine.Api.Controllers
+namespace TrainTicketMachine.Api.Controllers;
+
+[ApiController]
+[Route("[controller]")]
+public class StationsController(IStationService stationService, ILogger<StationsController> logger) : ControllerBase
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class StationsController(IStationService stationService, ILogger<StationsController> logger) : ControllerBase
+    [HttpGet]
+    public async Task<ActionResult<SearchResponse>> GetStationsByPrefix([FromQuery] string prefix)
     {
-        [HttpGet]
-        public async Task<ActionResult<SearchResponse>> GetStationsByPrefix([FromQuery] string prefix)
+        if (string.IsNullOrWhiteSpace(prefix))
         {
-            if (string.IsNullOrWhiteSpace(prefix))
+            return BadRequest("Prefix cannot be empty");
+        }
+
+        try
+        {
+            var searchResponse = await stationService.GetStationsByPrefix(prefix).ConfigureAwait(false);
+
+            if (searchResponse == null)
             {
-                return BadRequest("Prefix cannot be empty");
+                return NotFound("No stations found for the given prefix");
             }
 
-            try
-            {
-                var searchResponse = await stationService.GetStationsByPrefix(prefix);
-
-                if (searchResponse == null)
-                {
-                    return NotFound("No stations found for the given prefix");
-                }
-
-                return Ok(searchResponse);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, ex.Message);
-                return StatusCode(500, "Internal server error");
-            }
+            return Ok(searchResponse);
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, ex.Message);
+            return StatusCode(500, "Internal server error");
         }
     }
 }
