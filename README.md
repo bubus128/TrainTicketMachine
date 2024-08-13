@@ -11,9 +11,8 @@ Shields.io workflow statuses dont work with privat repositories
 
 Test Statuses
 
-![Functional Tests](https://github.com/bubus128/TrainTicketMachine/actions/workflows/run_functional_tests.yml/badge.svg?branch=develop)\
-![Integration Tests](https://github.com/bubus128/TrainTicketMachine/actions/workflows/run_integration_tests.yml/badge.svg?branch=develop)\
 ![Unit Tests](https://github.com/bubus128/TrainTicketMachine/actions/workflows/run_unit_tests.yml/badge.svg?branch=develop) 
+![Integration Tests](https://github.com/bubus128/TrainTicketMachine/actions/workflows/run_integration_tests.yml/badge.svg?branch=develop)
 
 # TrainTicketMachine
 
