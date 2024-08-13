@@ -1,6 +1,4 @@
-﻿namespace TrainTicketMachine.Api.Controllers.Interfaces
+﻿namespace TrainTicketMachine.Api.Controllers.Interfaces;
+public interface IStationsController
 {
-    public interface IStationsController
-    {
-    }
 }
